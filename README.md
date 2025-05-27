@@ -20,3 +20,4 @@ it works by having one main css file which contains all the colors and other var
 - add a way to view sizes and other things in editor
 - view rgb values in editor
 - optional seperate themes for different pages
+- a gui based theme creator / editor
