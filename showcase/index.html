@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theme Showcase</title>
-            <link rel="icon" href="../icons/icon-48.png" type="image/svg+xml">
-    <link rel="stylesheet" href="../themes/theme.css"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../themes/theme.css">
+        <link rel="icon" href="../icons/icon-48.png" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Basic styles for the showcase page itself */
         body {
             font-family: var(--theme-font-family-base, "Inter", sans-serif);
             background-color: var(--theme-bg-body, #ffffff);
             color: var(--theme-text-color, #111827);
-            line-height: var(--theme-line-height-base, 1.5);
-            padding: 2rem;
+            line-height: var(--theme-line-height-base, 1.6);
+            padding: 1rem 2rem 3rem; /* Added bottom padding */
             margin: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
@@ -25,241 +27,596 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: var(--theme-font-family-heading, "Inter", sans-serif);
             color: var(--theme-heading-color, #111827);
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             margin-bottom: 1rem;
+            font-weight: var(--theme-font-weight-bold, 700);
         }
 
-        h1 { font-size: var(--theme-font-size-xl, 1.5rem); }
-        h2 { font-size: var(--theme-font-size-lg, 1.25rem); }
-        h3 { font-size: var(--theme-font-size-md, 1rem); }
+        h1 { font-size: var(--theme-font-size-h1, 2.5rem); data-var-info="font-size: --theme-font-size-h1"; }
+        h2 { font-size: var(--theme-font-size-h2, 2rem); data-var-info="font-size: --theme-font-size-h2"; }
+        h3 { font-size: var(--theme-font-size-h3, 1.75rem); data-var-info="font-size: --theme-font-size-h3"; }
+        h4 { font-size: var(--theme-font-size-h4, 1.5rem); data-var-info="font-size: --theme-font-size-h4"; }
+
 
         section {
             margin-bottom: 3rem;
-            padding: 1.5rem;
+            padding: var(--theme-spacing-lg, 1.5rem);
             background-color: var(--theme-bg-surface, #f3f4f6);
             border-radius: var(--theme-border-radius-lg, 12px);
-            box-shadow: var(--theme-box-shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+            box-shadow: var(--theme-box-shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+            data-var-info="background-color: --theme-bg-surface; border-radius: --theme-border-radius-lg; box-shadow: --theme-box-shadow-md";
+            position: relative; /* For absolute positioning of section titles */
+        }
+
+        .section-title-overlay {
+            position: absolute;
+            top: -1.2em; /* Adjust to sit nicely above */
+            left: var(--theme-spacing-md, 1rem);
+            background-color: var(--theme-bg-body);
+            padding: 0 var(--theme-spacing-sm);
+            font-size: var(--theme-font-size-sm);
+            color: var(--theme-color-muted);
+            font-weight: var(--theme-font-weight-medium);
+            border-radius: var(--theme-border-radius-sm);
+            border: 1px solid var(--theme-border-color-light, #e5e7eb);
+        }
+
+
+        .color-swatch-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--theme-spacing-md, 1rem);
         }
 
         .color-swatch {
-            display: inline-block;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: var(--theme-border-radius-md, 8px);
-            margin-right: 1rem;
-            margin-bottom: 1rem;
-            vertical-align: top;
-            border: 1px solid var(--theme-border-color, #d1d5db);
-            text-align: center;
-            padding-top: 85px; /* Adjust as needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: var(--theme-spacing-sm, 0.5rem);
             font-size: var(--theme-font-size-xs, 0.75rem);
-            color: var(--theme-text-color);
+            text-align: center;
+            border: 1px solid var(--theme-border-color, #d1d5db);
+            box-shadow: var(--theme-box-shadow-sm);
+            position: relative; /* For data-var-info positioning */
+        }
+        .color-swatch span {
+            background-color: rgba(255,255,255,0.7);
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #333;
         }
 
-        .button {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--theme-border-radius-md, 8px);
-            font-size: var(--theme-font-size-md, 1rem);
-            text-decoration: none;
+        .button-showcase button, .button-showcase .button-link {
+            margin: var(--theme-spacing-xs, 0.25rem);
+            padding: var(--theme-button-padding-y, 0.5rem) var(--theme-button-padding-x, 1rem);
+            font-size: var(--theme-button-font-size, 1rem);
+            border-radius: var(--theme-button-border-radius, 8px);
             cursor: pointer;
-            border: var(--theme-border-width, 1px) solid var(--theme-button-border, transparent);
-            margin: 0.5rem;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            line-height: var(--theme-button-line-height);
+            border: var(--theme-border-width) solid transparent; /* Default border */
         }
 
         .btn-primary {
             background-color: var(--theme-button-bg, #4f46e5);
             color: var(--theme-button-text, #ffffff);
+            border-color: var(--theme-button-border, transparent);
+            data-var-info="bg: --theme-button-bg; color: --theme-button-text";
         }
         .btn-primary:hover {
             background-color: var(--theme-button-hover-bg, #4338ca);
             color: var(--theme-button-hover-text, #ffffff);
+            data-var-info="bg: --theme-button-hover-bg; color: --theme-button-hover-text";
         }
-         .btn-primary:active { background-color: var(--theme-button-active-bg, #3730a3); }
-         .btn-primary:disabled {
-            background-color: var(--theme-button-disabled-bg, #d1d5db);
-            color: var(--theme-button-disabled-text, #6b7280);
+        .btn-primary:active { background-color: var(--theme-button-active-bg); }
+        .btn-primary:disabled {
+            background-color: var(--theme-button-disabled-bg);
+            color: var(--theme-button-disabled-text);
+            opacity: var(--theme-button-disabled-opacity);
             cursor: not-allowed;
-         }
+        }
 
         .btn-secondary {
             background-color: var(--theme-button-secondary-bg, #6b7280);
-            color: var(--theme-button-text, #ffffff);
+            color: var(--theme-button-secondary-text, #ffffff);
+            data-var-info="bg: --theme-button-secondary-bg; color: --theme-button-secondary-text";
         }
-        .btn-secondary:hover { opacity: 0.85; }
+        .btn-secondary:hover { background-color: var(--theme-button-secondary-hover-bg); }
 
-        .btn-success {
-            background-color: var(--theme-button-success-bg, #10b981);
-            color: var(--theme-button-text, #ffffff);
-        }
-        .btn-success:hover { opacity: 0.85; }
-
-        .btn-danger {
-            background-color: var(--theme-button-danger-bg, #ef4444);
-            color: var(--theme-button-text, #ffffff);
-        }
-         .btn-danger:hover { opacity: 0.85; }
+        .btn-success { background-color: var(--theme-button-success-bg); color: var(--theme-button-text); data-var-info="bg: --theme-button-success-bg"; }
+        .btn-danger { background-color: var(--theme-button-danger-bg); color: var(--theme-button-text); data-var-info="bg: --theme-button-danger-bg"; }
 
         .alert {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: var(--theme-border-radius-sm, 4px);
-            border: 1px solid transparent; /* Ensure consistent border space */
+            padding: var(--theme-alert-padding-y, 0.75rem) var(--theme-alert-padding-x, 1.25rem);
+            margin-bottom: var(--theme-spacing-md, 1rem);
+            border-width: var(--theme-alert-border-width, 1px);
+            border-style: solid;
+            border-radius: var(--theme-alert-border-radius, 4px);
         }
+        .alert-success { background-color: var(--theme-alert-success-bg); color: var(--theme-alert-success-text); border-color: var(--theme-alert-success-border); data-var-info="bg: --theme-alert-success-bg; color: --theme-alert-success-text; border: --theme-alert-success-border"; }
+        .alert-warning { background-color: var(--theme-alert-warning-bg); color: var(--theme-alert-warning-text); border-color: var(--theme-alert-warning-border); data-var-info="bg: --theme-alert-warning-bg; color: --theme-alert-warning-text; border: --theme-alert-warning-border"; }
+        .alert-danger  { background-color: var(--theme-alert-danger-bg);  color: var(--theme-alert-danger-text);  border-color: var(--theme-alert-danger-border);  data-var-info="bg: --theme-alert-danger-bg; color: --theme-alert-danger-text; border: --theme-alert-danger-border"; }
+        .alert-info    { background-color: var(--theme-alert-info-bg);    color: var(--theme-alert-info-text);    border-color: var(--theme-alert-info-border);    data-var-info="bg: --theme-alert-info-bg; color: --theme-alert-info-text; border: --theme-alert-info-border"; }
 
-        .alert-success {
-            background-color: var(--theme-alert-success-bg, #d1fae5);
-            color: var(--theme-alert-success-text, #065f46);
-            border-color: var(--theme-alert-success-bg);
-        }
-        .alert-warning {
-            background-color: var(--theme-alert-warning-bg, #fef3c7);
-            color: var(--theme-alert-warning-text, #92400e);
-            border-color: var(--theme-alert-warning-bg);
-        }
-        .alert-danger {
-            background-color: var(--theme-alert-danger-bg, #fee2e2);
-            color: var(--theme-alert-danger-text, #991b1b);
-            border-color: var(--theme-alert-danger-bg);
-        }
-        .alert-info {
-            background-color: var(--theme-alert-info-bg, #dbeafe);
-            color: var(--theme-alert-info-text, #1e3a8a);
-            border-color: var(--theme-alert-info-bg);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
+        .form-group { margin-bottom: var(--theme-spacing-lg, 1.5rem); }
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: var(--theme-font-weight-bold, 700);
+            margin-bottom: var(--theme-spacing-sm, 0.5rem);
+            color: var(--theme-label-color, inherit);
+            font-weight: var(--theme-label-font-weight, 500);
+            data-var-info="color: --theme-label-color; font-weight: --theme-label-font-weight";
         }
-
-        .form-input {
+        .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: var(--theme-border-width, 1px) solid var(--theme-input-border, #d1d5db);
-            border-radius: var(--theme-border-radius-md, 8px);
-            background-color: var(--theme-input-bg, #ffffff);
+            padding: var(--theme-input-padding-y, 0.5rem) var(--theme-input-padding-x, 0.75rem);
+            font-size: var(--theme-input-font-size, 1rem);
+            line-height: var(--theme-input-line-height, 1.6);
             color: var(--theme-input-text, #111827);
-            font-size: var(--theme-font-size-md, 1rem);
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            background-color: var(--theme-input-bg, #ffffff);
+            border: var(--theme-border-width, 1px) solid var(--theme-input-border, #d1d5db);
+            border-radius: var(--theme-input-border-radius, 8px);
+            box-shadow: var(--theme-box-shadow-inner, none);
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            box-sizing: border-box;
+            data-var-info="bg: --theme-input-bg; color: --theme-input-text; border: --theme-input-border";
         }
-         .form-input::placeholder { color: var(--theme-input-placeholder, #9ca3af); }
-         .form-input:focus {
-            outline: none;
+        .form-input::placeholder { color: var(--theme-input-placeholder, #9ca3af); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
             border-color: var(--theme-input-focus-border, #4f46e5);
-            box-shadow: 0 0 0 2px var(--theme-outline-color, #4f46e5);
-         }
-         .form-input:disabled {
+            outline: 0;
+            box-shadow: var(--theme-input-focus-shadow, 0 0 0 3px rgba(79,70,229,.25));
+            data-var-info="border: --theme-input-focus-border; box-shadow: --theme-input-focus-shadow";
+        }
+        .form-input:disabled, .form-select:disabled, .form-textarea:disabled {
             background-color: var(--theme-input-disabled-bg, #f3f4f6);
             color: var(--theme-input-disabled-text, #9ca3af);
+            opacity: 1;
             cursor: not-allowed;
-         }
+        }
+        .form-input.error { border-color: var(--theme-input-error-border); color: var(--theme-input-error-text); data-var-info="border: --theme-input-error-border; color: --theme-input-error-text"; }
 
-         .card {
+        .card {
             background-color: var(--theme-bg-card, #ffffff);
             border-radius: var(--theme-border-radius-lg, 12px);
-            padding: 1.5rem;
-            box-shadow: var(--theme-box-shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.15));
-            margin-bottom: 1rem;
-         }
-         .card-header {
-             padding-bottom: 1rem;
-             border-bottom: var(--theme-border-width) solid var(--theme-border-color);
-             margin-bottom: 1rem;
-             font-weight: var(--theme-font-weight-bold);
-         }
+            padding: var(--theme-spacing-lg, 1.5rem);
+            box-shadow: var(--theme-box-shadow-lg, 0 10px 15px rgba(0,0,0,0.15));
+            margin-bottom: var(--theme-spacing-md, 1rem);
+            data-var-info="bg: --theme-bg-card; border-radius: --theme-border-radius-lg; box-shadow: --theme-box-shadow-lg";
+        }
+        .card-header {
+            padding-bottom: var(--theme-spacing-md, 1rem);
+            border-bottom: var(--theme-border-width) solid var(--theme-border-color);
+            margin-bottom: var(--theme-spacing-md, 1rem);
+            font-size: var(--theme-font-size-lg);
+            font-weight: var(--theme-font-weight-medium);
+        }
+
+        .nav-example {
+            background-color: var(--theme-nav-bg, #fff);
+            padding: var(--theme-spacing-sm, 0.5rem) var(--theme-spacing-md, 1rem);
+            border: 1px solid var(--theme-nav-border-color, #d1d5db);
+            border-radius: var(--theme-border-radius-md);
+            data-var-info="bg: --theme-nav-bg; border: --theme-nav-border-color";
+        }
+        .nav-example ul { list-style: none; padding: 0; margin: 0; display: flex; gap: var(--theme-spacing-sm); }
+        .nav-example li a {
+            display: block;
+            padding: var(--theme-nav-link-padding-y, 0.5rem) var(--theme-nav-link-padding-x, 1rem);
+            color: var(--theme-nav-text, #111827);
+            text-decoration: none;
+            border-radius: var(--theme-border-radius-sm);
+            data-var-info="color: --theme-nav-text; padding: --theme-nav-link-padding-y --theme-nav-link-padding-x";
+        }
+        .nav-example li a:hover { background-color: var(--theme-nav-hover-bg); color: var(--theme-nav-hover-text); data-var-info="bg: --theme-nav-hover-bg; color: --theme-nav-hover-text"; }
+        .nav-example li a.active { background-color: var(--theme-nav-active-bg); color: var(--theme-nav-active-text); font-weight: var(--theme-font-weight-bold); data-var-info="bg: --theme-nav-active-bg; color: --theme-nav-active-text"; }
+
+        .table-example {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--theme-spacing-md);
+            border: 1px solid var(--theme-table-border-color);
+            border-radius: var(--theme-border-radius-md);
+            overflow: hidden; /* For border-radius on table */
+        }
+        .table-example th, .table-example td {
+            padding: var(--theme-table-cell-padding-y, 0.75rem) var(--theme-table-cell-padding-x, 1rem);
+            border-bottom: 1px solid var(--theme-table-border-color);
+            text-align: left;
+        }
+        .table-example thead th {
+            background-color: var(--theme-table-header-bg, #f9fafb);
+            color: var(--theme-table-header-text, #374151);
+            font-weight: var(--theme-font-weight-bold);
+            data-var-info="bg: --theme-table-header-bg; color: --theme-table-header-text";
+        }
+        .table-example tbody tr { background-color: var(--theme-table-row-bg, #fff); data-var-info="bg: --theme-table-row-bg"; }
+        .table-example tbody tr:hover { background-color: var(--theme-table-row-hover-bg, #f3f4f6); data-var-info="bg: --theme-table-row-hover-bg"; }
+        .table-example tbody tr:nth-child(odd) { background-color: var(--theme-table-striped-bg, var(--theme-bg-body-alt)); data-var-info="bg: --theme-table-striped-bg"; }
+
+        .modal-example-trigger-btn { /* Class for the trigger button */ }
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--theme-modal-backdrop-bg, rgba(0,0,0,0.5));
+            z-index: var(--theme-z-index-modal-backdrop, 1040);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            data-var-info="bg: --theme-modal-backdrop-bg; z-index: --theme-z-index-modal-backdrop";
+        }
+        .modal-content {
+            background-color: var(--theme-modal-bg, #fff);
+            padding: var(--theme-spacing-lg);
+            border-radius: var(--theme-modal-border-radius, 12px);
+            box-shadow: var(--theme-modal-shadow, 0 10px 15px rgba(0,0,0,0.15));
+            width: 90%;
+            max-width: 500px;
+            z-index: var(--theme-z-index-modal, 1050);
+            position: relative;
+            data-var-info="bg: --theme-modal-bg; border-radius: --theme-modal-border-radius; box-shadow: --theme-modal-shadow; z-index: --theme-z-index-modal";
+        }
+        .modal-header { background-color: var(--theme-modal-header-bg); padding: var(--theme-spacing-md); border-bottom: 1px solid var(--theme-modal-border-color); border-top-left-radius: var(--theme-modal-border-radius); border-top-right-radius: var(--theme-modal-border-radius); data-var-info="bg: --theme-modal-header-bg"; }
+        .modal-footer { background-color: var(--theme-modal-footer-bg); padding: var(--theme-spacing-md); border-top: 1px solid var(--theme-modal-border-color); border-bottom-left-radius: var(--theme-modal-border-radius); border-bottom-right-radius: var(--theme-modal-border-radius); text-align: right; data-var-info="bg: --theme-modal-footer-bg"; }
+        .modal-close-btn {
+            position: absolute;
+            top: var(--theme-spacing-md);
+            right: var(--theme-spacing-md);
+            background: none; border: none; font-size: 1.5rem;
+            color: var(--theme-modal-close-color, #6b7280); cursor: pointer;
+            data-var-info="color: --theme-modal-close-color";
+        }
+
+
+        .tooltip-example-trigger {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--theme-text-color);
+            cursor: help;
+        }
+        .tooltip-content {
+            visibility: hidden; opacity: 0;
+            background-color: var(--theme-tooltip-bg, #111827);
+            color: var(--theme-tooltip-text, #fff);
+            text-align: center;
+            border-radius: var(--theme-tooltip-border-radius, 4px);
+            padding: var(--theme-tooltip-padding, 0.5rem 0.75rem);
+            position: absolute;
+            z-index: var(--theme-z-index-tooltip, 1070);
+            bottom: 125%; /* Position above the text */
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.2s var(--theme-transition-timing, ease-in-out);
+            white-space: nowrap;
+            font-size: var(--theme-font-size-sm);
+            data-var-info="bg: --theme-tooltip-bg; color: --theme-tooltip-text; border-radius: --theme-tooltip-border-radius; padding: --theme-tooltip-padding; z-index: --theme-z-index-tooltip";
+        }
+        .tooltip-example-trigger:hover .tooltip-content { visibility: visible; opacity: 1; }
+
+        .code-example {
+            background-color: var(--theme-code-bg, #e5e7eb);
+            color: var(--theme-code-text, #111827);
+            padding: var(--theme-code-padding, 0.2em 0.4em);
+            border-radius: var(--theme-code-border-radius, 4px);
+            font-family: var(--theme-font-family-monospace, monospace);
+            font-size: 0.9em;
+            data-var-info="bg: --theme-code-bg; color: --theme-code-text; padding: --theme-code-padding; border-radius: --theme-code-border-radius";
+        }
+        .pre-example {
+            background-color: var(--theme-pre-bg, #f3f4f6);
+            color: var(--theme-pre-text, #111827);
+            padding: var(--theme-pre-padding, 1rem);
+            border-radius: var(--theme-pre-border-radius, 8px);
+            overflow-x: auto;
+            font-family: var(--theme-font-family-monospace, monospace);
+            font-size: 0.9em;
+            border: 1px solid var(--theme-border-color-light);
+            data-var-info="bg: --theme-pre-bg; color: --theme-pre-text; padding: --theme-pre-padding; border-radius: --theme-pre-border-radius";
+        }
+
+        .divider-example {
+            height: var(--theme-divider-width, 1px);
+            background-color: var(--theme-divider-color, #d1d5db);
+            margin: var(--theme-spacing-lg, 1.5rem) 0;
+            border: 0;
+            data-var-info="height: --theme-divider-width; bg: --theme-divider-color";
+        }
+
+        /* Tooltip for variable info */
+        #variable-tooltip {
+            position: fixed;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            z-index: 9999;
+            pointer-events: none; /* So it doesn't interfere with other hovers */
+            white-space: pre; /* Preserve line breaks */
+            opacity: 0;
+            transition: opacity 0.1s ease-out, display 0s linear 0.1s; /* Delay display none */
+            display: none; /* Start hidden */
+        }
+
+        /* Helper class for elements that should trigger the tooltip */
+        .show-var-on-hover {
+            /* Can be empty, just used as a selector */
+        }
+        
+        /* For the transition example div */
+        .transition-div-example {
+             width:100px;
+             height:100px;
+             background-color: var(--theme-color-info);
+             transition: transform var(--theme-transition-duration) var(--theme-transition-timing);
+        }
 
     </style>
 </head>
 <body>
-
+    <div id="variable-tooltip"></div>
     <div class="container">
-        <h1>CSS Theme Showcase</h1>
-        <p>This page demonstrates the visual styles defined in <code>theme.css</code> using CSS variables.</p>
+        <h1>Interactive CSS Theme Showcase</h1>
+        <p data-var-info="color: --theme-text-color; font-family: --theme-font-family-base">
+            Hover over elements to see the primary CSS variables used.
+            This page uses the variables defined in <code>theme.css</code>.
+        </p>
 
         <section>
-            <h2>Colors</h2>
-            <div>
-                <span class="color-swatch" style="background-color: var(--theme-color-primary);">Primary</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-secondary);">Secondary</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-tertiary);">Tertiary</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-success);">Success</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-warning);">Warning</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-danger);">Danger</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-info);">Info</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-light); border: 1px solid #eee;">Light</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-dark); color: var(--theme-color-light);">Dark</span>
-                <span class="color-swatch" style="background-color: var(--theme-color-muted);">Muted</span>
+            <span class="section-title-overlay">Colors</span>
+            <h2>Theme Colors</h2>
+            <div class="color-swatch-container">
+                <div class="color-swatch" style="background-color: var(--theme-color-primary);" data-var-info="--theme-color-primary"><span>Primary</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-primary-light);" data-var-info="--theme-color-primary-light"><span>Primary Light</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-primary-dark);" data-var-info="--theme-color-primary-dark"><span>Primary Dark</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-secondary);" data-var-info="--theme-color-secondary"><span>Secondary</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-secondary-light);" data-var-info="--theme-color-secondary-light"><span>Secondary Light</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-secondary-dark);" data-var-info="--theme-color-secondary-dark"><span>Secondary Dark</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-tertiary);" data-var-info="--theme-color-tertiary"><span>Tertiary</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-success);" data-var-info="--theme-color-success"><span>Success</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-warning);" data-var-info="--theme-color-warning"><span>Warning</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-danger);" data-var-info="--theme-color-danger"><span>Danger</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-info);" data-var-info="--theme-color-info"><span>Info</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-light); border: 1px solid #eee;" data-var-info="--theme-color-light"><span>Light</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-dark); color: var(--theme-color-light);" data-var-info="--theme-color-dark"><span>Dark</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-muted);" data-var-info="--theme-color-muted"><span>Muted</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-white); border: 1px solid #eee;" data-var-info="--theme-color-white"><span>White</span></div>
+                <div class="color-swatch" style="background-color: var(--theme-color-black); color: var(--theme-color-white);" data-var-info="--theme-color-black"><span>Black</span></div>
             </div>
+             <h3>Text & Link Colors</h3>
+             <p data-var-info="color: --theme-text-color">This is standard text using <code>--theme-text-color</code>.</p>
+             <p style="color: var(--theme-text-color-light);" data-var-info="color: --theme-text-color-light">This is lighter text using <code>--theme-text-color-light</code>.</p>
+             <p style="color: var(--theme-text-color-muted);" data-var-info="color: --theme-text-color-muted">This is muted text using <code>--theme-text-color-muted</code>.</p>
+             <p style="background-color: var(--theme-bg-dark); color: var(--theme-text-color-inverted); padding: var(--theme-spacing-sm);" data-var-info="color: --theme-text-color-inverted; bg: --theme-bg-dark">This is inverted text on a dark background.</p>
+             <p><a href="#" style="color: var(--theme-link-color);" data-var-info="color: --theme-link-color">This is a link</a>, and <a href="#" style="color: var(--theme-link-hover-color);" data-var-info="color: --theme-link-hover-color">this is a hovered link</a>.</p>
+             <p><a href="#" style="color: var(--theme-link-visited-color);" data-var-info="color: --theme-link-visited-color">This is a visited link (example)</a>.</p>
         </section>
 
         <section>
-            <h2>Typography</h2>
-            <h1>Heading 1 (XL)</h1>
-            <h2>Heading 2 (LG)</h2>
-            <h3>Heading 3 (MD)</h3>
-            <p style="font-size: var(--theme-font-size-sm);">This is a paragraph with small text (SM).</p>
-            <p style="font-size: var(--theme-font-size-xs);">This is some extra small text (XS).</p>
-            <p>This is a standard paragraph (MD) with <strong>bold text</strong>. It uses the base font size and line height. We also have a <a href="#" style="color: var(--theme-link-color); text-decoration: underline;">link</a> and a <a href="#" style="color: var(--theme-link-hover-color); text-decoration: underline;">hovered link</a> (imagine hovering).</p>
+            <span class="section-title-overlay">Backgrounds</span>
+            <h2>Background Colors</h2>
+            <div class="card" style="background-color: var(--theme-bg-body);" data-var-info="bg: --theme-bg-body">Body Background (<code>--theme-bg-body</code>)</div>
+            <div class="card" style="background-color: var(--theme-bg-body-alt);" data-var-info="bg: --theme-bg-body-alt">Alt Body Background (<code>--theme-bg-body-alt</code>)</div>
+            <div class="card" style="background-color: var(--theme-bg-surface);" data-var-info="bg: --theme-bg-surface">Surface Background (<code>--theme-bg-surface</code>)</div>
+            <div class="card" style="background-color: var(--theme-bg-surface-hover);" data-var-info="bg: --theme-bg-surface-hover">Surface Hover (<code>--theme-bg-surface-hover</code>)</div>
+            <div class="card" style="background-color: var(--theme-bg-header);" data-var-info="bg: --theme-bg-header">Header Background (<code>--theme-bg-header</code>)</div>
+            <div class="card" style="background-color: var(--theme-bg-primary); color: var(--theme-text-on-primary);" data-var-info="bg: --theme-bg-primary; color: --theme-text-on-primary">Primary Background (<code>--theme-bg-primary</code>)</div>
         </section>
 
         <section>
+            <span class="section-title-overlay">Typography</span>
+            <h2>Headings & Text</h2>
+            <h1 class="show-var-on-hover">Heading 1 (H1)</h1>
+            <h2 class="show-var-on-hover">Heading 2 (H2)</h2>
+            <h3 class="show-var-on-hover">Heading 3 (H3)</h3>
+            <h4 class="show-var-on-hover">Heading 4 (H4)</h4>
+            <p style="font-size: var(--theme-font-size-xxl);" data-var-info="font-size: --theme-font-size-xxl">XXL Text using <code>--theme-font-size-xxl</code>.</p>
+            <p style="font-size: var(--theme-font-size-xl);" data-var-info="font-size: --theme-font-size-xl">XL Text using <code>--theme-font-size-xl</code>.</p>
+            <p style="font-size: var(--theme-font-size-lg);" data-var-info="font-size: --theme-font-size-lg">Large Text using <code>--theme-font-size-lg</code>.</p>
+            <p style="font-size: var(--theme-font-size-md);" data-var-info="font-size: --theme-font-size-md">Medium (Base) Text using <code>--theme-font-size-md</code>.</p>
+            <p style="font-size: var(--theme-font-size-sm);" data-var-info="font-size: --theme-font-size-sm">Small Text using <code>--theme-font-size-sm</code>.</p>
+            <p style="font-size: var(--theme-font-size-xs);" data-var-info="font-size: --theme-font-size-xs">Extra Small Text using <code>--theme-font-size-xs</code>.</p>
+            <p style="font-size: var(--theme-font-size-xxs);" data-var-info="font-size: --theme-font-size-xxs">XXS Text using <code>--theme-font-size-xxs</code>.</p>
+            <p>Font weights:
+                <span style="font-weight: var(--theme-font-weight-light);" data-var-info="font-weight: --theme-font-weight-light">Light</span>,
+                <span style="font-weight: var(--theme-font-weight-normal);" data-var-info="font-weight: --theme-font-weight-normal">Normal</span>,
+                <span style="font-weight: var(--theme-font-weight-medium);" data-var-info="font-weight: --theme-font-weight-medium">Medium</span>,
+                <span style="font-weight: var(--theme-font-weight-bold);" data-var-info="font-weight: --theme-font-weight-bold">Bold</span>.
+            </p>
+            <p style="line-height: var(--theme-line-height-heading);" data-var-info="line-height: --theme-line-height-heading">Heading line height.</p>
+            <p style="letter-spacing: var(--theme-letter-spacing-wide);" data-var-info="letter-spacing: --theme-letter-spacing-wide">Wide letter spacing.</p>
+            <p style="font-family: var(--theme-font-family-monospace);" data-var-info="font-family: --theme-font-family-monospace">This is monospace font family.</p>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Spacing</span>
+            <h2>Spacing Units</h2>
+            <div style="display: flex; align-items: flex-end; gap: 5px; height: 100px; border: 1px solid var(--theme-border-color-light); padding: 5px;">
+                <div style="width: 30px; background-color: var(--theme-color-primary-light); height: var(--theme-spacing-xs);" data-var-info="height: --theme-spacing-xs"></div><span>XS</span>
+                <div style="width: 30px; background-color: var(--theme-color-primary-light); height: var(--theme-spacing-sm);" data-var-info="height: --theme-spacing-sm"></div><span>SM</span>
+                <div style="width: 30px; background-color: var(--theme-color-primary); height: var(--theme-spacing-md);" data-var-info="height: --theme-spacing-md"></div><span>MD</span>
+                <div style="width: 30px; background-color: var(--theme-color-primary); height: var(--theme-spacing-lg);" data-var-info="height: --theme-spacing-lg"></div><span>LG</span>
+                <div style="width: 30px; background-color: var(--theme-color-primary-dark); height: var(--theme-spacing-xl);" data-var-info="height: --theme-spacing-xl"></div><span>XL</span>
+                <div style="width: 30px; background-color: var(--theme-color-primary-dark); height: var(--theme-spacing-xxl);" data-var-info="height: --theme-spacing-xxl"></div><span>XXL</span>
+            </div>
+            <p style="margin-top: var(--theme-spacing-md); padding: var(--theme-spacing-sm); border: 1px solid var(--theme-color-tertiary);"
+               data-var-info="margin-top: --theme-spacing-md; padding: --theme-spacing-sm">This paragraph has margin-top MD and padding SM.</p>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Borders & Shadows</span>
+            <h2>Borders</h2>
+            <div style="padding: var(--theme-spacing-md); border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color); border-radius: var(--theme-border-radius-sm); margin-bottom: var(--theme-spacing-sm);"
+                 data-var-info="border: --theme-border-width --theme-border-style --theme-border-color; border-radius: --theme-border-radius-sm">Small Radius</div>
+            <div style="padding: var(--theme-spacing-md); border: var(--theme-border-width-lg) var(--theme-border-style) var(--theme-border-color-light); border-radius: var(--theme-border-radius-md); margin-bottom: var(--theme-spacing-sm);"
+                 data-var-info="border: --theme-border-width-lg --theme-border-style --theme-border-color-light; border-radius: --theme-border-radius-md">Medium Radius, Large Width</div>
+            <div style="padding: var(--theme-spacing-md); border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color); border-radius: var(--theme-border-radius-lg); margin-bottom: var(--theme-spacing-sm);"
+                 data-var-info="border-radius: --theme-border-radius-lg">Large Radius</div>
+            <div style="padding: var(--theme-spacing-md); border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color); border-radius: var(--theme-border-radius-xl); margin-bottom: var(--theme-spacing-sm);"
+                 data-var-info="border-radius: --theme-border-radius-xl">XL Radius</div>
+            <div style="width: 50px; height: 50px; border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color); border-radius: var(--theme-border-radius-round);"
+                 data-var-info="border-radius: --theme-border-radius-round">Round</div>
+            <h2>Shadows</h2>
+            <div class="card" style="box-shadow: var(--theme-box-shadow-sm);" data-var-info="box-shadow: --theme-box-shadow-sm">Shadow SM</div>
+            <div class="card" style="box-shadow: var(--theme-box-shadow-md);" data-var-info="box-shadow: --theme-box-shadow-md">Shadow MD</div>
+            <div class="card" style="box-shadow: var(--theme-box-shadow-lg);" data-var-info="box-shadow: --theme-box-shadow-lg">Shadow LG</div>
+            <div class="card" style="box-shadow: var(--theme-box-shadow-xl);" data-var-info="box-shadow: --theme-box-shadow-xl">Shadow XL</div>
+            <div class="card" style="box-shadow: var(--theme-box-shadow-inner);" data-var-info="box-shadow: --theme-box-shadow-inner">Shadow Inner</div>
+            <h2>Outline (on focus)</h2>
+            <input type="text" class="form-input" id="outline-input-example" placeholder="Focus me for outline"
+                   data-var-info="outline: --theme-outline-width --theme-outline-style --theme-outline-color; outline-offset: --theme-outline-offset (on focus)">
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Buttons</span>
             <h2>Buttons</h2>
-            <button class="button btn-primary">Primary Button</button>
-            <button class="button btn-secondary">Secondary Button</button>
-            <button class="button btn-success">Success Button</button>
-            <button class="button btn-danger">Danger Button</button>
-            <button class="button btn-primary" disabled>Disabled Button</button>
+            <div class="button-showcase">
+                <button class="btn-primary">Primary</button>
+                <button class="btn-secondary">Secondary</button>
+                <button class="btn-success">Success</button>
+                <button class="btn-danger">Danger</button>
+                <button class="btn-primary" disabled>Disabled</button>
+                <a href="#" class="button-link btn-primary">Link as Button</a>
+            </div>
         </section>
 
         <section>
-            <h2>Forms & Inputs</h2>
+            <span class="section-title-overlay">Forms & Inputs</span>
+            <h2>Forms</h2>
             <div class="form-group">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                <label for="name" class="form-label show-var-on-hover">Full Name</label>
+                <input type="text" id="name" class="form-input show-var-on-hover" placeholder="Enter your name">
             </div>
             <div class="form-group">
-                <label for="email" class="form-label">Email Address (Focus State)</label>
-                <input type="email" id="email" class="form-input" placeholder="you@example.com">
+                <label for="email" class="form-label">Email (Focus State)</label>
+                <input type="email" id="email" class="form-input show-var-on-hover" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label for="error_input" class="form-label">Input with Error</label>
+                <input type="text" id="error_input" class="form-input error show-var-on-hover" value="Invalid entry">
             </div>
              <div class="form-group">
-                <label for="disabled" class="form-label">Disabled Input</label>
-                <input type="text" id="disabled" class="form-input" placeholder="Can't touch this" disabled>
+                <label for="disabled_input" class="form-label">Disabled Input</label>
+                <input type="text" id="disabled_input" class="form-input show-var-on-hover" placeholder="Can't touch this" disabled>
+            </div>
+            <div class="form-group">
+                <label for="select_example" class="form-label">Select Dropdown</label>
+                <select id="select_example" class="form-select show-var-on-hover">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="textarea_example" class="form-label">Textarea</label>
+                <textarea id="textarea_example" class="form-textarea show-var-on-hover" rows="3" placeholder="Enter text..."></textarea>
             </div>
         </section>
 
         <section>
+            <span class="section-title-overlay">Alerts</span>
             <h2>Alerts</h2>
-            <div class="alert alert-success">This is a success alert!</div>
-            <div class="alert alert-warning">This is a warning alert!</div>
-            <div class="alert alert-danger">This is a danger alert!</div>
-            <div class="alert alert-info">This is an info alert!</div>
+            <div class="alert alert-success show-var-on-hover">This is a success alert!</div>
+            <div class="alert alert-warning show-var-on-hover">This is a warning alert!</div>
+            <div class="alert alert-danger show-var-on-hover">This is a danger alert!</div>
+            <div class="alert alert-info show-var-on-hover">This is an info alert!</div>
         </section>
 
-         <section>
-            <h2>Cards & Surfaces</h2>
-            <div class="card">
-                <div class="card-header">Card Title</div>
-                <p>This is the content within a card. It uses the `theme-bg-card` and `theme-box-shadow-lg` variables. It provides a distinct surface for content.</p>
-                <button class="button btn-primary">Action inside Card</button>
+        <section>
+            <span class="section-title-overlay">Navigation</span>
+            <h2>Navigation Example</h2>
+            <nav class="nav-example show-var-on-hover">
+                <ul>
+                    <li><a href="#" class="active show-var-on-hover">Home (Active)</a></li>
+                    <li><a href="#" class="show-var-on-hover">Features</a></li>
+                    <li><a href="#" class="show-var-on-hover">Pricing</a></li>
+                    <li><a href="#" class="show-var-on-hover">About</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Tables</span>
+            <h2>Table Example</h2>
+            <table class="table-example">
+                <thead>
+                    <tr>
+                        <th class="show-var-on-hover">ID</th>
+                        <th class="show-var-on-hover">Name</th>
+                        <th class="show-var-on-hover">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="show-var-on-hover"><td>1</td><td>Alice</td><td>Admin</td></tr>
+                    <tr class="show-var-on-hover"><td>2</td><td>Bob</td><td>Editor</td></tr>
+                    <tr class="show-var-on-hover"><td>3</td><td>Charlie</td><td>Viewer</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Modals</span>
+            <h2>Modal Example</h2>
+            <button class="button-showcase btn-primary modal-example-trigger-btn">Open Modal</button>
+            <div class="modal-backdrop" id="exampleModal">
+                <div class="modal-content show-var-on-hover">
+                    <button class="modal-close-btn show-var-on-hover" id="exampleModalCloseBtn">&times;</button>
+                    <div class="modal-header show-var-on-hover">
+                        <h4>Modal Title</h4>
+                    </div>
+                    <div style="padding: var(--theme-spacing-md);">
+                        <p>This is the modal content. It uses various modal-specific variables for its background, border, shadow, etc.</p>
+                    </div>
+                    <div class="modal-footer show-var-on-hover">
+                        <button class="button-showcase btn-secondary" id="exampleModalFooterCloseBtn">Close</button>
+                        <button class="button-showcase btn-primary">Save Changes</button>
+                    </div>
+                </div>
             </div>
-             <div class="card" style="background-color: var(--theme-bg-header);">
-                <div class="card-header">Another Card (Header BG)</div>
-                <p>This card uses a different background to show contrast.</p>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Tooltips & Dropdowns</span>
+            <h2>Tooltip Example</h2>
+            <p>Hover over <span class="tooltip-example-trigger">this text
+                <span class="tooltip-content show-var-on-hover">Tooltip content here!</span>
+            </span> to see a tooltip.</p>
+
+            <h2>Dropdown (Conceptual)</h2>
+            <div class="card" style="background-color: var(--theme-dropdown-bg); border: 1px solid var(--theme-dropdown-border); box-shadow: var(--theme-dropdown-shadow); padding: 0; width: 200px;"
+                 data-var-info="bg: --theme-dropdown-bg; border: --theme-dropdown-border; box-shadow: --theme-dropdown-shadow">
+                <a href="#" class="dropdown-item-example" style="display:block; padding: var(--theme-dropdown-item-padding); color: var(--theme-text-color); text-decoration: none;"
+                   data-var-info="padding: --theme-dropdown-item-padding; hover-bg: --theme-dropdown-hover-bg">Item 1</a>
+                <a href="#" class="dropdown-item-example" style="display:block; padding: var(--theme-dropdown-item-padding); color: var(--theme-text-color); text-decoration: none;">Item 2</a>
             </div>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Code Blocks</span>
+            <h2>Code Examples</h2>
+            <p>This is an inline <code class="code-example show-var-on-hover">code</code> snippet.</p>
+            <pre class="pre-example show-var-on-hover"><code>&lt;div class="example"&gt;
+  This is a preformatted
+  block of code.
+&lt;/div&gt;</code></pre>
+        </section>
+
+        <section>
+            <span class="section-title-overlay">Miscellaneous</span>
+            <h2>Divider</h2>
+            <p>Some content above the divider.</p>
+            <hr class="divider-example show-var-on-hover">
+            <p>Some content below the divider.</p>
+            <h2>Transitions (Conceptual)</h2>
+            <div class="transition-div-example" id="transition-example-div"
+                 data-var-info="transition: --theme-transition-duration --theme-transition-timing">Hover Me</div>
         </section>
 
     </div>
 
-    <script>
-        // Simple script to demonstrate focus on the email input
-        document.getElementById('email').focus();
-    </script>
+    <script src="showcase.js"></script>
 </body>
 </html>
