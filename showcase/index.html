@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Showcase</title>
+            <link rel="icon" href="../icons/icon-48.png" type="image/svg+xml">
+    <link rel="stylesheet" href="../themes/theme.css"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styles for the showcase page itself */
+        body {
+            font-family: var(--theme-font-family-base, "Inter", sans-serif);
+            background-color: var(--theme-bg-body, #ffffff);
+            color: var(--theme-text-color, #111827);
+            line-height: var(--theme-line-height-base, 1.5);
+            padding: 2rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--theme-font-family-heading, "Inter", sans-serif);
+            color: var(--theme-heading-color, #111827);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: var(--theme-font-size-xl, 1.5rem); }
+        h2 { font-size: var(--theme-font-size-lg, 1.25rem); }
+        h3 { font-size: var(--theme-font-size-md, 1rem); }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background-color: var(--theme-bg-surface, #f3f4f6);
+            border-radius: var(--theme-border-radius-lg, 12px);
+            box-shadow: var(--theme-box-shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--theme-border-radius-md, 8px);
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            vertical-align: top;
+            border: 1px solid var(--theme-border-color, #d1d5db);
+            text-align: center;
+            padding-top: 85px; /* Adjust as needed */
+            font-size: var(--theme-font-size-xs, 0.75rem);
+            color: var(--theme-text-color);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--theme-border-radius-md, 8px);
+            font-size: var(--theme-font-size-md, 1rem);
+            text-decoration: none;
+            cursor: pointer;
+            border: var(--theme-border-width, 1px) solid var(--theme-button-border, transparent);
+            margin: 0.5rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--theme-button-bg, #4f46e5);
+            color: var(--theme-button-text, #ffffff);
+        }
+        .btn-primary:hover {
+            background-color: var(--theme-button-hover-bg, #4338ca);
+            color: var(--theme-button-hover-text, #ffffff);
+        }
+         .btn-primary:active { background-color: var(--theme-button-active-bg, #3730a3); }
+         .btn-primary:disabled {
+            background-color: var(--theme-button-disabled-bg, #d1d5db);
+            color: var(--theme-button-disabled-text, #6b7280);
+            cursor: not-allowed;
+         }
+
+        .btn-secondary {
+            background-color: var(--theme-button-secondary-bg, #6b7280);
+            color: var(--theme-button-text, #ffffff);
+        }
+        .btn-secondary:hover { opacity: 0.85; }
+
+        .btn-success {
+            background-color: var(--theme-button-success-bg, #10b981);
+            color: var(--theme-button-text, #ffffff);
+        }
+        .btn-success:hover { opacity: 0.85; }
+
+        .btn-danger {
+            background-color: var(--theme-button-danger-bg, #ef4444);
+            color: var(--theme-button-text, #ffffff);
+        }
+         .btn-danger:hover { opacity: 0.85; }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--theme-border-radius-sm, 4px);
+            border: 1px solid transparent; /* Ensure consistent border space */
+        }
+
+        .alert-success {
+            background-color: var(--theme-alert-success-bg, #d1fae5);
+            color: var(--theme-alert-success-text, #065f46);
+            border-color: var(--theme-alert-success-bg);
+        }
+        .alert-warning {
+            background-color: var(--theme-alert-warning-bg, #fef3c7);
+            color: var(--theme-alert-warning-text, #92400e);
+            border-color: var(--theme-alert-warning-bg);
+        }
+        .alert-danger {
+            background-color: var(--theme-alert-danger-bg, #fee2e2);
+            color: var(--theme-alert-danger-text, #991b1b);
+            border-color: var(--theme-alert-danger-bg);
+        }
+        .alert-info {
+            background-color: var(--theme-alert-info-bg, #dbeafe);
+            color: var(--theme-alert-info-text, #1e3a8a);
+            border-color: var(--theme-alert-info-bg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: var(--theme-font-weight-bold, 700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: var(--theme-border-width, 1px) solid var(--theme-input-border, #d1d5db);
+            border-radius: var(--theme-border-radius-md, 8px);
+            background-color: var(--theme-input-bg, #ffffff);
+            color: var(--theme-input-text, #111827);
+            font-size: var(--theme-font-size-md, 1rem);
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+         .form-input::placeholder { color: var(--theme-input-placeholder, #9ca3af); }
+         .form-input:focus {
+            outline: none;
+            border-color: var(--theme-input-focus-border, #4f46e5);
+            box-shadow: 0 0 0 2px var(--theme-outline-color, #4f46e5);
+         }
+         .form-input:disabled {
+            background-color: var(--theme-input-disabled-bg, #f3f4f6);
+            color: var(--theme-input-disabled-text, #9ca3af);
+            cursor: not-allowed;
+         }
+
+         .card {
+            background-color: var(--theme-bg-card, #ffffff);
+            border-radius: var(--theme-border-radius-lg, 12px);
+            padding: 1.5rem;
+            box-shadow: var(--theme-box-shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.15));
+            margin-bottom: 1rem;
+         }
+         .card-header {
+             padding-bottom: 1rem;
+             border-bottom: var(--theme-border-width) solid var(--theme-border-color);
+             margin-bottom: 1rem;
+             font-weight: var(--theme-font-weight-bold);
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CSS Theme Showcase</h1>
+        <p>This page demonstrates the visual styles defined in <code>theme.css</code> using CSS variables.</p>
+
+        <section>
+            <h2>Colors</h2>
+            <div>
+                <span class="color-swatch" style="background-color: var(--theme-color-primary);">Primary</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-secondary);">Secondary</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-tertiary);">Tertiary</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-success);">Success</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-warning);">Warning</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-danger);">Danger</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-info);">Info</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-light); border: 1px solid #eee;">Light</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-dark); color: var(--theme-color-light);">Dark</span>
+                <span class="color-swatch" style="background-color: var(--theme-color-muted);">Muted</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Typography</h2>
+            <h1>Heading 1 (XL)</h1>
+            <h2>Heading 2 (LG)</h2>
+            <h3>Heading 3 (MD)</h3>
+            <p style="font-size: var(--theme-font-size-sm);">This is a paragraph with small text (SM).</p>
+            <p style="font-size: var(--theme-font-size-xs);">This is some extra small text (XS).</p>
+            <p>This is a standard paragraph (MD) with <strong>bold text</strong>. It uses the base font size and line height. We also have a <a href="#" style="color: var(--theme-link-color); text-decoration: underline;">link</a> and a <a href="#" style="color: var(--theme-link-hover-color); text-decoration: underline;">hovered link</a> (imagine hovering).</p>
+        </section>
+
+        <section>
+            <h2>Buttons</h2>
+            <button class="button btn-primary">Primary Button</button>
+            <button class="button btn-secondary">Secondary Button</button>
+            <button class="button btn-success">Success Button</button>
+            <button class="button btn-danger">Danger Button</button>
+            <button class="button btn-primary" disabled>Disabled Button</button>
+        </section>
+
+        <section>
+            <h2>Forms & Inputs</h2>
+            <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" class="form-input" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address (Focus State)</label>
+                <input type="email" id="email" class="form-input" placeholder="you@example.com">
+            </div>
+             <div class="form-group">
+                <label for="disabled" class="form-label">Disabled Input</label>
+                <input type="text" id="disabled" class="form-input" placeholder="Can't touch this" disabled>
+            </div>
+        </section>
+
+        <section>
+            <h2>Alerts</h2>
+            <div class="alert alert-success">This is a success alert!</div>
+            <div class="alert alert-warning">This is a warning alert!</div>
+            <div class="alert alert-danger">This is a danger alert!</div>
+            <div class="alert alert-info">This is an info alert!</div>
+        </section>
+
+         <section>
+            <h2>Cards & Surfaces</h2>
+            <div class="card">
+                <div class="card-header">Card Title</div>
+                <p>This is the content within a card. It uses the `theme-bg-card` and `theme-box-shadow-lg` variables. It provides a distinct surface for content.</p>
+                <button class="button btn-primary">Action inside Card</button>
+            </div>
+             <div class="card" style="background-color: var(--theme-bg-header);">
+                <div class="card-header">Another Card (Header BG)</div>
+                <p>This card uses a different background to show contrast.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Simple script to demonstrate focus on the email input
+        document.getElementById('email').focus();
+    </script>
+</body>
+</html>

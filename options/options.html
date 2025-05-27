@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Editor</title>
+      <link rel="icon" href="../icons/icon-48.png" type="image/svg+xml">
+<link rel="stylesheet" href="../themes/theme.css">
+<link rel="stylesheet" href="lib/codemirror.css">
+<link rel="stylesheet" href="lib/pickr/nano.min.css"> <style>
+        body {
+            font-family: var(--theme-font-family-base, sans-serif);
+            background-color: var(--theme-bg-body, #ffffff);
+            color: var(--theme-text-color, #111827);
+            padding: 20px;
+        }
+        h1 {
+            color: var(--theme-heading-color);
+            border-bottom: var(--theme-border-width) solid var(--theme-border-color);
+            padding-bottom: 10px;
+        }
+        button {
+            padding: 10px 25px;
+            border: var(--theme-border-width) solid var(--theme-button-border);
+            border-radius: var(--theme-border-radius-md);
+            font-size: var(--theme-font-size-md);
+            cursor: pointer;
+            background-color: var(--theme-button-bg);
+            color: var(--theme-button-text);
+            margin-right: 10px;
+            margin-top: 20px; /* Add some space */
+        }
+        button:hover {
+            background-color: var(--theme-button-hover-bg);
+        }
+         button#resetButton {
+             background-color: var(--theme-button-secondary-bg);
+         }
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--theme-color-success);
+        }                                                
+
+        /* Style the CodeMirror instance */
+        .CodeMirror {
+            border: var(--theme-border-width, 1px) solid var(--theme-input-border);
+            border-radius: var(--theme-border-radius-md);
+            height: 60vh;
+            width: 95%;
+            font-size: 14px;
+        }
+        /* Make textarea invisible */
+        #cssEditor {
+            display: none;
+        }
+
+        /* Style for the color swatch widget */
+        .color-swatch-widget {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%; /* Circle */
+            border: 1px solid #888;
+            cursor: pointer;
+            margin-right: 5px;
+            vertical-align: middle; /* Align nicely with text */
+            box-shadow: 0 0 2px rgba(0,0,0,0.3);
+        }
+
+        /* Pickr popup adjustments (optional, if needed) */
+        .pickr .pcr-button {
+           display: none; /* We don't need Pickr's default button */
+        }
+        .pickr .pcr-app {
+            position: absolute;
+            z-index: 1000; /* Ensure it's above CodeMirror */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Edit Global Theme (<code>theme.css</code>)</h1>
+    <p>Changes saved here will override the bundled <code>theme.css</code> file and will be injected into pages (unless disabled).</p>
+
+    <textarea id="cssEditor"></textarea>
+
+    <button id="saveButton">Save Theme</button>
+    <button id="resetButton">Reset to Bundled</button>
+    <div id="status"></div>
+
+    <script src="lib/codemirror.js"></script>
+    <script src="lib/css.js"></script>
+    <script src="lib/pickr/pickr.min.js"></script> <script src="options.js"></script>
+</body>
+</html>

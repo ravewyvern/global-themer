@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Theme Styler Control</title>
+    <link rel="stylesheet" href="../themes/theme.css">
+    <style>
+        body {
+            width: 250px;
+            padding: 15px;
+            background-color: var(--theme-bg-surface, #f3f4f6);
+            color: var(--theme-text-color, #111827);
+            font-family: var(--theme-font-family-base, sans-serif);
+        }
+        h3 {
+            margin-top: 0;
+            color: var(--theme-heading-color, #111827);
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border: var(--theme-border-width, 1px) solid var(--theme-button-border, transparent);
+            border-radius: var(--theme-border-radius-md, 8px);
+            font-size: var(--theme-font-size-md, 1rem);
+            cursor: pointer;
+            background-color: var(--theme-button-bg, #4f46e5);
+            color: var(--theme-button-text, #ffffff);
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: var(--theme-button-hover-bg, #4338ca);
+        }
+        button#toggleButton.disabled {
+             background-color: var(--theme-button-secondary-bg, #6b7280);
+        }
+        button#toggleButton.disabled:hover {
+             opacity: 0.9;
+        }
+        .site-name {
+            font-weight: bold;
+            color: var(--theme-color-primary);
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+        #toggleButton:disabled {
+             background-color: var(--theme-button-disabled-bg, #d1d5db);
+             color: var(--theme-button-disabled-text, #6b7280);
+             cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h3>Theme Styler</h3>
+    <span id="siteName" class="site-name">Loading...</span>
+    <button id="toggleButton">Toggle Theme</button>
+    <button id="showcaseButton">Open Showcase</button>
+    <button id="editButton">Edit Theme.css</button>
+    <script src="popup.js"></script>
+</body>
+</html>
