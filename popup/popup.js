@@ -60,8 +60,8 @@ async function initializePopup() {
             updateButtonState("No active page", false);
         }
     } catch (e) {
-         console.error("[Popup] Error initializing popup:", e);
-         updateButtonState("Error", false);
+        console.error("[Popup] Error initializing popup:", e);
+        updateButtonState("Error", false);
     }
 }
 
@@ -108,3 +108,19 @@ editButton.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', initializePopup);
 
 console.log("[Popup] popup.js loaded.");
+
+// popup/popup.js
+
+document.getElementById('open-editor-btn').addEventListener('click', () => {
+    browser.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+        const tabId = tabs[0].id;
+
+        // Inject the CSS file first
+        browser.tabs.insertCSS(tabId, { file: "/side-panel/editor.css" })
+            .then(() => {
+                // After CSS is injected, inject the JS
+                return browser.tabs.executeScript(tabId, { file: "/side-panel/editor.js" });
+            })
+            .catch(err => console.error("Global Themer Injection Error:", err));
+    });
+});

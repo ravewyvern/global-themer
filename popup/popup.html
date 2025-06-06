@@ -34,10 +34,10 @@
             background-color: var(--theme-button-hover-bg, #4338ca);
         }
         button#toggleButton.disabled {
-             background-color: var(--theme-button-secondary-bg, #6b7280);
+            background-color: var(--theme-button-secondary-bg, #6b7280);
         }
         button#toggleButton.disabled:hover {
-             opacity: 0.9;
+            opacity: 0.9;
         }
         .site-name {
             font-weight: bold;
@@ -48,18 +48,19 @@
             word-wrap: break-word;
         }
         #toggleButton:disabled {
-             background-color: var(--theme-button-disabled-bg, #d1d5db);
-             color: var(--theme-button-disabled-text, #6b7280);
-             cursor: not-allowed;
+            background-color: var(--theme-button-disabled-bg, #d1d5db);
+            color: var(--theme-button-disabled-text, #6b7280);
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-    <h3>Theme Styler</h3>
-    <span id="siteName" class="site-name">Loading...</span>
-    <button id="toggleButton">Toggle Theme</button>
-    <button id="showcaseButton">Open Showcase</button>
-    <button id="editButton">Edit Theme.css</button>
-    <script src="popup.js"></script>
+<h3>Theme Styler</h3>
+<span id="siteName" class="site-name">Loading...</span>
+<button id="toggleButton">Toggle Theme</button>
+<button id="showcaseButton">Open Showcase</button>
+<button id="editButton">Edit Theme.css</button>
+<button id="open-editor-btn">Create Config</button>
+<script src="popup.js"></script>
 </body>
 </html>
